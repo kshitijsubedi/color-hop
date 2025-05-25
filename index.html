@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Hop - Endless Arcade Challenge</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fafafa;
+            min-height: 100vh;
+            scroll-behavior: smooth;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .game-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-10px) rotateX(5deg);
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+            margin: 0 auto 20px;
+        }
+        
+        .download-btn {
+            background: linear-gradient(45deg, #4f46e5 0%, #7c3aed 100%);
+            box-shadow: 0 4px 20px rgba(124, 58, 237, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 25px rgba(124, 58, 237, 0.4);
+        }
+        
+        .screenshot {
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .screenshot:hover {
+            transform: scale(1.03);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(0.98);
+                box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.4);
+            }
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 12px rgba(79, 70, 229, 0);
+            }
+            100% {
+                transform: scale(0.98);
+                box-shadow: 0 0 0 0 rgba(79, 70, 229, 0);
+            }
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, #4f46e5 0%, #7c3aed 50%, #c026d3 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .testimonial-card {
+            background: linear-gradient(145deg, #ffffff 0%, #f9fafb 100%);
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        
+        .floating-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 50;
+            box-shadow: 0 10px 25px rgba(79, 70, 229, 0.3);
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+    <!-- Hero Section -->
+    <section class="hero-gradient pt-32 pb-20 px-6 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-0 left-0 w-full h-full bg-repeat" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2IiBoZWlnaHQ9IjYiPgo8cmVjdCB3aWR0aD0iNiIgaGVpZ2h0PSI2IiBmaWxsPSIjZmZmZmZmIj48L3JlY3Q+CjxwYXRoIGQ9Ik0wIDZMNiAwWk02IDZMMCAwWiIgc3Ryb2tlLXdpZHRoPSIxIiBzdHJva2U9IiMwMDAwMDAiPjwvcGF0aD4KPC9zdmc+');"></div>
+        </div>
+        
+        <div class="container mx-auto flex flex-col md:flex-row items-center relative z-10">
+            <div class="md:w-1/2 mb-16 md:mb-0">
+                <div class="inline-block bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-full mb-6">
+                    <span class="font-medium">🎮 New Update Available!</span>
+                </div>
+                <h1 class="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">Hop. <span class="gradient-text">Color.</span> Repeat.</h1>
+                <p class="text-xl text-white/90 mb-8 max-w-lg">The ultimate one-tap arcade experience. Simple controls, endless challenge, and vibrant colors that pop!</p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a href="#download" class="download-btn text-white font-bold py-4 px-8 rounded-xl text-center flex items-center justify-center">
+                        <i class="fas fa-download mr-3"></i> Download Free
+                    </a>
+                </div>
+                
+                <div class="mt-12 flex items-center space-x-6">
+                    <div class="flex items-center">
+                        <div class="flex -space-x-2">
+                            <img class="w-10 h-10 rounded-full border-2 border-white" src="https://randomuser.me/api/portraits/women/12.jpg" alt="">
+                            <img class="w-10 h-10 rounded-full border-2 border-white" src="https://randomuser.me/api/portraits/men/32.jpg" alt="">
+                            <img class="w-10 h-10 rounded-full border-2 border-white" src="https://randomuser.me/api/portraits/women/44.jpg" alt="">
+                        </div>
+                        <div class="ml-4">
+                            <div class="text-white font-medium">5M+ Downloads</div>
+                            <div class="flex text-yellow-300 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="md:w-1/2 flex justify-center">
+                <div class="relative">
+                    <div class="game-card bg-white p-2 rounded-3xl shadow-2xl max-w-xs transform transition-all duration-500">
+                        <img src="https://via.placeholder.com/300x600/4f46e5/ffffff?text=Color+Hop" alt="Color Hop Gameplay" class="rounded-2xl w-full">
+                    </div>
+                    <div class="absolute -bottom-5 -right-5 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold py-2 px-4 rounded-xl shadow-lg flex items-center">
+                        <i class="fas fa-bolt mr-2"></i> FREE
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 px-6 bg-white">
+        <div class="container mx-auto">
+            <div class="text-center mb-16">
+                <span class="text-sm font-semibold tracking-wider text-purple-600 uppercase">Why Choose Color Hop</span>
+                <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4">Endless Fun, One Tap</h2>
+                <p class="text-gray-500 max-w-2xl mx-auto">Designed for quick sessions but impossible to put down</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Feature 1 -->
+                <div class="bg-gradient-to-br from-white to-gray-50 p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition">
+                    <div class="feature-icon bg-purple-50 text-purple-600">
+                        <i class="fas fa-infinity text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-center">Unlimited Levels</h3>
+                    <p class="text-gray-600 text-center">The challenge never ends with procedurally generated levels that keep getting harder.</p>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="bg-gradient-to-br from-white to-gray-50 p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition">
+                    <div class="feature-icon bg-pink-50 text-pink-600">
+                        <i class="fas fa-palette text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-center">Vibrant Visuals</h3>
+                    <p class="text-gray-600 text-center">Clean, colorful graphics with satisfying animations that make every hop feel great.</p>
+                </div>
+                
+                <!-- Feature 3 -->
+                <div class="bg-gradient-to-br from-white to-gray-50 p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition">
+                    <div class="feature-icon bg-blue-50 text-blue-600">
+                        <i class="fas fa-trophy text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-center">Pure Skill</h3>
+                    <p class="text-gray-600 text-center">No pay-to-win mechanics - just your reflexes and timing against the challenge.</p>
+                </div>
+                
+                <!-- Feature 4 -->
+                <div class="bg-gradient-to-br from-white to-gray-50 p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition">
+                    <div class="feature-icon bg-green-50 text-green-600">
+                        <i class="fas fa-fingerprint text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-center">One-Tap Control</h3>
+                    <p class="text-gray-600 text-center">Simple enough for anyone to play, deep enough to keep you coming back.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Screenshots Section -->
+    <section id="screenshots" class="py-20 px-6 bg-gray-50">
+        <div class="container mx-auto">
+            <div class="text-center mb-16">
+                <span class="text-sm font-semibold tracking-wider text-purple-600 uppercase">Gameplay</span>
+                <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4">Colorful Screenshots</h2>
+                <p class="text-gray-500 max-w-2xl mx-auto">See the vibrant world of Color Hop</p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="screenshot">
+                    <img src="https://via.placeholder.com/400x700/4f46e5/ffffff?text=Level+1" alt="Color Hop Screenshot 1" class="w-full h-auto">
+                </div>
+                <div class="screenshot">
+                    <img src="https://via.placeholder.com/400x700/7c3aed/ffffff?text=Level+25" alt="Color Hop Screenshot 2" class="w-full h-auto">
+                </div>
+                <div class="screenshot">
+                    <img src="https://via.placeholder.com/400x700/c026d3/ffffff?text=Level+50" alt="Color Hop Screenshot 3" class="w-full h-auto">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-20 px-6 bg-white">
+        <div class="container mx-auto">
+            <div class="text-center mb-16">
+                <span class="text-sm font-semibold tracking-wider text-purple-600 uppercase">Community Love</span>
+                <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4">What Players Say</h2>
+                <p class="text-gray-500 max-w-2xl mx-auto">Join millions of happy players worldwide</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card p-6">
+                    <div class="flex items-center mb-4">
+                        <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Sarah J." class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold">Sarah J.</h4>
+                            <div class="flex text-yellow-400 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">"Perfect game for quick breaks! The colors are so vibrant and the gameplay is incredibly satisfying. My high score is 328!"</p>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card p-6">
+                    <div class="flex items-center mb-4">
+                        <img src="https://randomuser.me/api/portraits/men/54.jpg" alt="Mike T." class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold">Mike T.</h4>
+                            <div class="flex text-yellow-400 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">"Finally a mobile game that's actually free with no ads or IAPs. The devs deserve all the praise for this gem!"</p>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card p-6">
+                    <div class="flex items-center mb-4">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Priya K." class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold">Priya K.</h4>
+                            <div class="flex text-yellow-400 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">"The color schemes are so pleasing and the difficulty curve is perfect. I play this every day on my commute."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Section -->
+    <section id="download" class="py-24 px-6 bg-gradient-to-br from-indigo-900 to-purple-900">
+        <div class="container mx-auto text-center max-w-4xl">
+            <div class="inline-block bg-white/10 backdrop-blur-sm text-white px-6 py-3 rounded-full mb-6">
+                <span class="font-medium">5,000,000+ downloads and counting</span>
+            </div>
+            <h2 class="text-3xl md:text-5xl font-bold text-white mb-6">Ready to Start Hopping?</h2>
+            <p class="text-xl text-white/80 mb-10">Join the fun today - completely free with no hidden costs!</p>
+            
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
+                <a href="#" class="bg-white text-indigo-600 font-bold py-4 px-8 rounded-xl flex items-center justify-center hover:bg-gray-100 transition pulse">
+                    <i class="fab fa-google-play text-2xl mr-3"></i>
+                    <div class="text-left">
+                        <div class="text-xs font-normal">GET IT ON</div>
+                        <div class="text-lg">Google Play</div>
+                    </div>
+                </a>
+                <a href="#" class="bg-white text-indigo-600 font-bold py-4 px-8 rounded-xl flex items-center justify-center hover:bg-gray-100 transition pulse">
+                    <i class="fab fa-apple text-2xl mr-3"></i>
+                    <div class="text-left">
+                        <div class="text-xs font-normal">Download on the</div>
+                        <div class="text-lg">App Store</div>
+                    </div>
+                </a>
+            </div>
+            
+            <div class="mt-10 grid grid-cols-3 gap-4 max-w-lg mx-auto">
+                <div class="text-center">
+                    <div class="text-white text-2xl font-bold">4.9</div>
+                    <div class="text-white/70 text-sm">Rating</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-white text-2xl font-bold">100%</div>
+                    <div class="text-white/70 text-sm">Free</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-white text-2xl font-bold">0</div>
+                    <div class="text-white/70 text-sm">Ads</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12 px-6">
+        <div class="container mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold text-xl mr-2">CH</div>
+                        <span class="font-bold text-xl">Color Hop</span>
+                    </div>
+                    <p class="text-gray-400 mt-2 text-sm">© 2023 Color Hop. All rights reserved.</p>
+                </div>
+                
+                <div class="flex space-x-6 mb-6 md:mb-0">
+                    <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-twitter text-xl"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-instagram text-xl"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-tiktok text-xl"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-discord text-xl"></i></a>
+                </div>
+                
+                <div class="text-center md:text-right">
+                    <p class="text-gray-400 text-sm">Made with <i class="fas fa-heart text-pink-500"></i> for arcade lovers</p>
+                    <p class="text-gray-500 text-xs mt-1">No ads • No in-app purchases • Just fun</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Download Button -->
+    <a href="#download" class="floating-btn download-btn text-white font-bold py-4 px-6 rounded-full text-center hidden md:flex items-center">
+        <i class="fas fa-download mr-2"></i> Download
+    </a>
+
+    <script>
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Show floating download button when scrolling
+        window.addEventListener('scroll', function() {
+            const floatingBtn = document.querySelector('.floating-btn');
+            if (window.scrollY > 300) {
+                floatingBtn.classList.remove('hidden');
+                floatingBtn.classList.add('flex');
+            } else {
+                floatingBtn.classList.add('hidden');
+                floatingBtn.classList.remove('flex');
+            }
+        });
+        
+        // Animation for game card on page load
+        window.addEventListener('load', () => {
+            const gameCard = document.querySelector('.game-card');
+            gameCard.style.transform = 'translateY(0) rotateX(0)';
+            
+            // Animate features in sequence
+            const features = document.querySelectorAll('.feature-card, .testimonial-card');
+            features.forEach((feature, index) => {
+                setTimeout(() => {
+                    feature.style.opacity = '1';
+                    feature.style.transform = 'translateY(0)';
+                }, 100 * index);
+            });
+        });
+    </script>
+</body>
+</html>
